@@ -123,7 +123,11 @@ fetch('http://localhost:5678/api/works')
   .catch(error => console.error(error));*/
 
 
-const gallery = document.getElementsByClassName('.gallery');
+
+
+
+
+/*const gallery = document.getElementsByClassName('.gallery');
 
 fetch('http://localhost:5678/api/works')
   .then(response => response.json())
@@ -142,21 +146,56 @@ function addWorksToGallery(works) {
   console.log(gallery)
   // Parcourir les travaux
   /*works.forEach(work => {*/
-  for (let i = 0; i < works.lenght; i++) {
-    const work = works[i]
+// for (let i = 0; i < works.lenght; i++) {
+// const work = works[i]
 
-    // Créer un élément d'image
-    const image = document.createElement('img');
-    image.src = work.imageURL;
-    // Créer un élément de titre
-    const title = document.createElement('h3');
-    title.innerText = work.title;
-    // Créer un élément de travail contenant l'image et le titre
-    const workElement = document.createElement('div');
-    workElement.appendChild(image);
-    workElement.appendChild(title);
-    // Ajouter l'élément de travail à la galerie
-    gallery.appendChild(workElement);
-  };
-}
+// Créer un élément d'image
+// const image = document.createElement('img');
+// image.src = work.imageURL;
+// Créer un élément de titre
+// const title = document.createElement('h3');
+// title.innerText = work.title;
+// Créer un élément de travail contenant l'image et le titre
+// const workElement = document.createElement('div');
+// workElement.appendChild(image);
+// workElement.appendChild(title);
+// Ajouter l'élément de travail à la galerie
+// gallery.appendChild(workElement);
+// };*
+// }*/
 
+// Récupération des travaux depuis l'API
+fetch('http://localhost:5678/api/works')
+  .then(response => response.json())
+  .then(works => {
+    // Sélection de l'élément de la galerie
+    const gallery = document.querySelector('.gallery');
+
+    // Suppression des travaux présents dans la galerie
+    gallery.innerHTML = '';
+
+    // Ajout des nouveaux travaux récupérés depuis l'API
+    works.forEach(work => {
+      const workItem = document.createElement('div');
+      workItem.classList.add('gallery-item');
+
+      const workImage = document.createElement('img');
+      workImage.src = work.imageUrl;
+      workImage.alt = work.title;
+
+      const workTitle = document.createElement('h3');
+      workTitle.textContent = work.title;
+
+      /*const workDescription = document.createElement('p');
+      workDescription.textContent = work.description;*/
+
+      workItem.appendChild(workImage);
+      workItem.appendChild(workTitle);
+      /*workItem.appendChild(workDescription);*/
+
+      gallery.appendChild(workItem);
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching works:', error);
+  });
