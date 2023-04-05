@@ -184,7 +184,7 @@ fetch('http://localhost:5678/api/works')
       workImage.alt = work.title;
 
       const workTitle = document.createElement('h3');
-      workTitle.textContent = work.title;
+      workTitle.innerText = work.title;
 
       /*const workDescription = document.createElement('p');
       workDescription.textContent = work.description;*/
@@ -196,6 +196,75 @@ fetch('http://localhost:5678/api/works')
       gallery.appendChild(workItem);
     });
   })
+
   .catch(error => {
     console.error('Error fetching works:', error);
   });
+
+
+/*// Récupération des projets de l'API
+fetch('http://localhost:5678/api/works')
+  .then(response => response.json())
+  .then(data => {
+    const projects = data.projects;
+
+    // Analyse des données pour déterminer les catégories de projets disponibles
+    const categories = new Set();
+    projects.forEach(project => categories.add(project.category));
+
+    // Création des boutons de filtre
+    const filters = document.getElementById('filters');
+    categories.forEach(category => {
+      const btn = document.createElement('button');
+      btn.classList.add('filter-btn');
+      btn.setAttribute('data-filter', category.toLowerCase());
+      btn.textContent = category;
+      filters.appendChild(btn);
+    });
+
+    // Ajout des écouteurs d'événements pour les boutons de filtre
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Filtre des projets en fonction de la catégorie sélectionnée
+        const filter = btn.getAttribute('data-filter');
+        const filteredProjects = filter === 'all' ? projects : projects.filter(project => project.category.toLowerCase() === filter);
+
+        // Affichage des projets filtrés dans la galerie
+        const gallery = document.querySelector('.gallery');
+        gallery.innerHTML = '';
+        filteredProjects.forEach(project => {
+          const projectEl = document.createElement('div');
+          projectEl.classList.add('project');
+          projectEl.innerHTML = `
+            <img src="${project.imageUrl}" alt="${project.title}">
+            <div class="project-details">
+              <h3>${project.title}</h3>
+              <p>${project.category}</p>
+              <a href="${project.link}" target="_blank">Voir le projet</a>
+            </div>
+          `;
+          gallery.appendChild(projectEl);
+        });
+
+        // Mettre à jour l'apparence des boutons de filtre
+        filterBtns.forEach(btn => btn.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Affichage initial de tous les projets dans la galerie
+    const gallery = document.querySelector('.gallery');
+    projects.forEach(project => {
+      const
+ */
+
+
+
+
+
+
+
+
+
+
