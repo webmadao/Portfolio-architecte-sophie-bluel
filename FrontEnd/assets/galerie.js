@@ -36,7 +36,7 @@ fetch('http://localhost:5678/api/works')
 
 /*------------------------------------------------------------*/
 
-const url = fetch('http://localhost:5678/api/works')
+/*const url = fetch('http://localhost:5678/api/works')
   .then(response => response.json())
   .then(data => {
 
@@ -84,11 +84,62 @@ const url = fetch('http://localhost:5678/api/works')
   })
   .catch(error => {
     console.error('Error fetching data:', error);
-  });
+  });*/
 
 /*-----------------------------------------*/
 
 
+// Récupération des données avec fetch
+const url = 'http://localhost:5678/api/works';
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    // Stockage des données dans une variable
+    const works = data;
+
+    // Sélection bouton filter-tous
+    const boutonTous = document.querySelector(".filter-tous");
+
+    boutonTous.addEventListener("click", function () {
+      console.log(works);
+    });
+
+    // Sélection bouton filter-objets
+    const boutonObjets = document.querySelector(".filter-objets");
+
+    boutonObjets.addEventListener("click", function () {
+      const filterObjects = works.filter(function (work) {
+        return work.category.id === 1;
+      });
+
+      console.log(filterObjects);
+    });
+
+    // Sélection bouton filter-appartements
+    const boutonAppartement = document.querySelector(".filter-appartements");
+
+    boutonAppartement.addEventListener("click", function () {
+      const filterAppartement = works.filter(function (work) {
+        return work.category.id === 2;
+      });
+
+      console.log(filterAppartement);
+    });
+
+    // Sélection bouton filter-hotel-restaurants
+    const boutonHotelRestaurants = document.querySelector(".filter-hotel-restaurants");
+
+    boutonHotelRestaurants.addEventListener("click", function () {
+      const filterHotelRestaurants = works.filter(function (work) {
+        return work.category.id === 3;
+      });
+
+      console.log(filterHotelRestaurants);
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
 
 
 
